@@ -1,14 +1,28 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
+import Home from '@/views/Home.vue';
+import Money from '@/views/Money.vue';
+import Label from '@/views/Label.vue';
+import Statistic from '@/views/Statistic.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-  const routes: Array<RouteConfig> = [
+const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/money'
+  },
+  {
+    path: '/money',
+    component: Money
+  },
+  {
+    path: '/label',
+    component: Label
+  },
+  {
+    path: '/statistic',
+    component: Statistic
   },
   {
     path: '/about',
