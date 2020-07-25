@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '@/views/Home.vue';
 import Money from '@/views/Money.vue';
 import Label from '@/views/Label.vue';
 import Statistic from '@/views/Statistic.vue';
