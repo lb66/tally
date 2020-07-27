@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Layout>money</Layout>
-    <Nav />
+    <Layout>
+      <p>money</p>
+    </Layout>
   </div>
 </template>
 
