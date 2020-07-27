@@ -16,8 +16,8 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]',
       })
-      .end();
-    config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
-    config.module.rule('svg').exclude.add(path.resolve('src/assets/icons/svg'))
+      .end()
+    config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }]);
+    config.module.rule('svg').exclude.add(path.resolve('src/assets/icons/svg'));
   }
 }

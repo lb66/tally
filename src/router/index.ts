@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    redirect: '/money'
+    redirect: '/money' //无地址时重定向到money组件
   },
   {
     path: '/money',
