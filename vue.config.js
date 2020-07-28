@@ -17,7 +17,17 @@ module.exports = {
         symbolId: 'icon-[name]',
       })
       .end()
-    config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }]);
-    config.module.rule('svg').exclude.add(path.resolve('src/assets/icons/svg'));
+      //删除svg原有的fill属性
+      .before('svg-sprite-loader')
+      .use('svgo-loader')
+      .loader('svgo-loader')
+      .options({
+        plugins: [
+          { removeAttrs: { attrs: 'path:fill' } }
+        ]
+      })
+      .end();
+    // config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }]);
+    // config.module.rule('svg').exclude.add(path.resolve('src/assets/icons/svg'));
   }
 }

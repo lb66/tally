@@ -19,14 +19,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/style/helper.scss";
 nav {
+  @extend %outerShadow;
   display: flex;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  // flex-direction: row;
   font-size: 14px;
   > .item {
     padding: 4px 0;
-    width: 33.333333%;
+    width: 33.3333%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -36,7 +37,7 @@ nav {
     }
   }
   > .selected {
-    color: red;
+    color: $color-highlight;
   }
 }
 </style>
