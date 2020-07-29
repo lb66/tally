@@ -8,10 +8,10 @@
 </template>
 
 <script lang="ts">
-import NumberPad from "@/components/Money/NumberPad";
-import Types from "@/components/Money/Types";
-import Notes from "@/components/Money/Notes";
-import Tags from "@/components/Money/Tags";
+import NumberPad from "@/components/Money/NumberPad.vue";
+import Types from "@/components/Money/Types.vue";
+import Notes from "@/components/Money/Notes.vue";
+import Tags from "@/components/Money/Tags.vue";
 export default {
   name: "Money",
   components: { NumberPad, Types, Notes, Tags },
