@@ -25,6 +25,7 @@ export default class Tags extends Vue {
       this.selectedTags.splice(0, 1);
     }
     this.selectedTags.push(tag);
+    this.$emit("update:value", this.selectedTags);
   }
   create() {
     const name = window.prompt("请输入标签名");

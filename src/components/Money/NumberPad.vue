@@ -5,7 +5,7 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove()">删除</button>
+      <button @click="remove">删除</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -13,7 +13,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="ok">OK</button>
+      <button @click="ok" class="ok">OK</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -33,7 +33,7 @@ export default class NumberPad extends Vue {
     this.output = this.output.substr(0, this.output.length - 1);
   }
   inputContent(event: MouseEvent) {
-    const button = event.target as HTMLButtonElement; //??
+    const button = event.target as HTMLButtonElement;
     const inputString = button.textContent as string;
     if (this.output.length >= 16) {
       return;
@@ -52,6 +52,14 @@ export default class NumberPad extends Vue {
       }
     }
     this.output += inputString;
+  }
+  ok() {
+    if (this.output === "0") {
+      return;
+    }
+    this.$emit("update:value", this.output);
+    this.$emit("submit", this.output);
+    this.output = "0";
   }
 }
 </script>

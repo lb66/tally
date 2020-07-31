@@ -8,12 +8,16 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch } from "vue-property-decorator";
 @Component
 export default class Types extends Vue {
-  type = "-";
+  type = "-"; //默认为支出
   selectType(type: string) {
     this.type = type;
+  }
+  @Watch("type")
+  onTypeChanged(value: string) {
+    this.$emit("update:value", value);
   }
 }
 </script>
