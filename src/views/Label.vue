@@ -2,12 +2,12 @@ import { Vue } from 'vue-property-decorator';
 <template>
   <div>
     <layout>
-      <ol class="tags">
-        <li v-for="tag in tags" :key="tag.id">
+      <div class="tags">
+        <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/label/edit/${tag.id}`">
           <span>{{tag.name}}</span>
           <svg-icon name="right" />
-        </li>
-      </ol>
+        </router-link>
+      </div>
       <div class="createTag-wrapper">
         <button class="createTag" @click="createTag">
           新增标签
@@ -27,15 +27,17 @@ tagModel.fetch();
 export default class Label extends Vue {
   tags = tagModel.data;
   createTag() {
-    const name = window.prompt("请输入标签名");
-    if (name) {
-      const message = tagModel.create(name);
-      if (message === "duplicated") {
-        window.alert("该标签已存在");
+    setTimeout(() => {
+      const name = window.prompt("请输入标签名");
+      if (name) {
+        const message = tagModel.create(name);
+        if (message === "duplicated") {
+          window.alert("该标签已存在");
+        }
+      } else {
+        return;
       }
-    } else {
-      return;
-    }
+    }, 500);
   }
 }
 </script>
@@ -44,18 +46,19 @@ export default class Label extends Vue {
 .tags {
   background: white;
   font-size: 16px;
-  padding-bottom: 8px;
+  padding: 8px 0;
 }
-li {
+.tag {
   display: flex;
   justify-content: space-between;
   min-height: 44px;
   align-items: center;
-  border-bottom: 2px solid #f5f5f5;
-  margin: 0 16px;
+  border: 2px solid #ecf0f1;
   svg {
     color: #666;
   }
+  margin: 6px 16px;
+  padding: 0 16px;
 }
 .createTag {
   &-wrapper {
