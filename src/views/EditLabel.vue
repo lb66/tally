@@ -5,6 +5,10 @@
     </router-link>
     <span>编辑</span>
     <Notes filedName="标签名" placeholder="请输入标签名" />
+    <Button>
+      删除标签
+      <span />
+    </Button>
   </Layout>
 </template>
 
@@ -12,7 +16,9 @@
 import { Vue, Component } from "vue-property-decorator";
 import tagModel from "@/models/tagModel";
 import Notes from "@/components/Money/Notes.vue";
-@Component({ components: { Notes } })
+import Button from "@/components/Button";
+
+@Component({ components: { Notes, Button } })
 export default class EditLabel extends Vue {
   created() {
     const id = this.$route.params.id;
