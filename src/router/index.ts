@@ -4,6 +4,7 @@ import Money from '@/views/Money.vue';
 import Label from '@/views/Label.vue';
 import Statistic from '@/views/Statistic.vue';
 import NotFound from '@/views/NotFound.vue';
+import EditLabel from '@/views/EditLabel.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,10 @@ const routes: Array<RouteConfig> = [
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/label/edit',
+    component: EditLabel
   },
   {
     path: '*',

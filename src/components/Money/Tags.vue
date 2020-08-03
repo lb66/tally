@@ -29,6 +29,9 @@ export default class Tags extends Vue {
   }
   create() {
     const name = window.prompt("请输入标签名");
+    if (!name) {
+      return;
+    }
     if (this.dataSource) {
       this.$emit("update:dataSource", [...this.dataSource, name]);
     }
