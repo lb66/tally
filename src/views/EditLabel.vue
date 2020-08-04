@@ -8,7 +8,7 @@
       <span class="right"></span>
     </div>
     <div class="note-wrapper">
-      <Notes filedName="标签名" placeholder="请输入标签名" class="ss" />
+      <Notes :value="tag.name" filedName="标签名" placeholder="请输入标签名" />
     </div>
     <div class="button-wrapper">
       <Button>
@@ -27,13 +27,14 @@ import Button from "@/components/Button.vue";
 
 @Component({ components: { Notes, Button } })
 export default class EditLabel extends Vue {
+  tag?: { id: string; name: string } = undefined;
   created() {
     const id = this.$route.params.id;
     tagModel.fetch();
     const tags = tagModel.data;
     const tag = tags.filter((t) => t.id === id)[0];
     if (tag) {
-      console.log(tag);
+      this.tag = tag;
     } else {
       this.$router.replace("/404");
     }
