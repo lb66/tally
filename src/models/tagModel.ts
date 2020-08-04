@@ -36,16 +36,14 @@ const model: TagModel = {
     }
   },
   remove(id: string) {
-
     let index = -1;
     for (let i = 0; i < this.data.length; i++) {
       if (this.data[i].id === id) {
         index = i;
+        this.data.splice(index, 1);
         break;
       }
     }
-
-    this.data.splice(index, 1);
     this.save();
     return true;
   }
