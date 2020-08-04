@@ -8,7 +8,7 @@
           <svg-icon name="right" />
         </router-link>
       </div>
-      <div class="createTag-wrapper">
+      <div class="button-wrapper">
         <Button @click.native="createTag">
           新增标签
           <span />
@@ -45,7 +45,6 @@ export default class Label extends Vue {
 
 <style lang="scss" scoped>
 .tags {
-  background: white;
   font-size: 16px;
   padding: 8px 0;
 }
@@ -54,7 +53,7 @@ export default class Label extends Vue {
   justify-content: space-between;
   min-height: 44px;
   align-items: center;
-  border: 2px solid #ecf0f1;
+  border: 2px solid #d5dde0;
   svg {
     color: #666;
   }
@@ -62,8 +61,8 @@ export default class Label extends Vue {
   padding: 0 16px;
 }
 
-.createTag-wrapper {
-  padding: 20px;
+.button-wrapper {
+  margin-top: 24px;
   display: grid;
   place-items: center;
 }

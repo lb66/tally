@@ -6,10 +6,10 @@
     <ul class="current">
       <li
         v-for="tag in dataSource"
-        :key="tag"
+        :key="tag.id"
         @click="select(tag)"
         :class="selectedTags.indexOf(tag)>=0 && 'selected'"
-      >{{tag}}</li>
+      >{{tag.name}}</li>
     </ul>
   </div>
 </template>
@@ -41,6 +41,7 @@ export default class Tags extends Vue {
 
 <style lang="scss" scoped>
 .tags {
+  background: white;
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;
@@ -59,7 +60,7 @@ export default class Tags extends Vue {
       margin-right: 12px;
       margin-top: 4px;
       &.selected {
-        background: darken(#e0e7e8, 40%);
+        background: darken(#e0e7e8, 30%);
         color: white;
       }
     }

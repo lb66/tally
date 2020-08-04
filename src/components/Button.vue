@@ -5,6 +5,9 @@
 </template>
 
 <script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+@Component
+export default class Button extends Vue {}
 </script>
 
 <style lang='scss' scoped>
@@ -33,7 +36,7 @@
     position: absolute;
     width: 8%;
     height: 500%;
-    background: #f5f5f5;
+    background: #f2f5f5;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-60deg);
@@ -48,6 +51,6 @@
 }
 .buttons:focus,
 .button:focus {
-  color: #f5f5f5;
+  color: #f2f5f5;
 }
 </style>
