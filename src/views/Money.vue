@@ -4,7 +4,6 @@
     <Types @update:value="onUpdateTypes" />
     <Notes @update:value="onUpdateNotes" filedName="备注" placeholder="在这里输入备注" />
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
-    {{record}}
   </Layout>
 </template>
 
@@ -45,14 +44,14 @@ export default class Money extends Vue {
   }
   onUpdateAmount(value: number) {
     this.record.amount = value;
-    this.record.createAt = new Date();
   }
   saveRecord() {
-    this.recordList.push(recordModel.clone(this.record));
+    this.record.createAt = new Date();
+    recordModel.create(this.record);
   }
   @Watch("recordList")
   onRecordListChanged() {
-    recordModel.save(this.recordList);
+    recordModel.save();
   }
 }
 </script>
