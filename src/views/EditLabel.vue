@@ -24,15 +24,17 @@ import { Vue, Component } from "vue-property-decorator";
 import tagModel from "@/models/tagModel";
 import Notes from "@/components/Money/Notes.vue";
 import Button from "@/components/Button.vue";
-
+type Tag = {
+  id: string;
+  name: string;
+};
 @Component({ components: { Notes, Button } })
 export default class EditLabel extends Vue {
-  tag?: { id: string; name: string } = undefined;
+  tag?: Tag = undefined;
   created() {
     const id = this.$route.params.id;
-    tagModel.fetch();
-    const tags = tagModel.data;
-    const tag = tags.filter((t) => t.id === id)[0];
+    const tags = tagModel.fetch();
+    const tag = tags.filter((t: Tag) => t.id === id)[0];
     if (tag) {
       this.tag = tag;
     } else {
