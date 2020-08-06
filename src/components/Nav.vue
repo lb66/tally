@@ -37,7 +37,7 @@ nav {
     }
   }
   > .selected {
-    color: $color-highlight;
+    color: royalblue;
   }
 }
 </style>

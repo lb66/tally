@@ -3,7 +3,7 @@
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
     <Types @update:value="onUpdateTypes" />
     <Notes @update:value="onUpdateNotes" filedName="备注" placeholder="在这里输入备注" />
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
+    <Tags />
     {{recordList}}
   </Layout>
 </template>
@@ -34,9 +34,6 @@ export default class Money extends Vue {
     amount: 0,
   };
   recordList: Record[] = recordModel.fetch();
-  onUpdateTags(value: string[]) {
-    this.record.tags = value;
-  }
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }

@@ -2,6 +2,7 @@ type Tag = {
   id: string;
   name: string;
 }
+
 type TagModel = {
   data: Tag[];
   fetch: () => Tag[];
@@ -10,6 +11,6 @@ type TagModel = {
   update: (id: string, name: string) => 'success' | undefined;
   remove: (id: string) => boolean;
 }
-interface Window {
-  tagList: Tag[];
-}
+
+// interface Window {
+// }

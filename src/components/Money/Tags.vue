@@ -5,7 +5,7 @@
     </div>
     <ul class="current">
       <li
-        v-for="tag in dataSource"
+        v-for="tag in tagList"
         :key="tag.id"
         @click="select(tag)"
         :class="selectedTags.indexOf(tag)>=0 && 'selected'"
@@ -15,10 +15,11 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
+import tagModel from "@/models/tagModel";
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) dataSource: string[] | undefined;
+  tagList = tagModel.fetch();
   selectedTags: string[] = [];
   select(tag: string) {
     if (this.selectedTags.length >= 1) {
@@ -32,9 +33,7 @@ export default class Tags extends Vue {
     if (!name) {
       return;
     }
-    if (this.dataSource) {
-      this.$emit("update:dataSource", [...this.dataSource, name]);
-    }
+    tagModel.create(name);
   }
 }
 </script>
