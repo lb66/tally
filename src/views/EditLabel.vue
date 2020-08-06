@@ -8,7 +8,7 @@
       <span class="right"></span>
     </div>
     <div class="note-wrapper">
-      <Notes :value="tag.name" filedName="标签名" placeholder="请输入标签名" @update:value="update" />
+      <Notes :value="tag.name" filedName="标签名" placeholder="请输入标签名" @update:value="update" /> 
     </div>
     <div class="button-wrapper">
       <Button @click="remove">

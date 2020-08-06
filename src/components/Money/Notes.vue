@@ -6,7 +6,7 @@
         type="text"
         :placeholder="placeholder"
         :value="value"
-        @input="onValueChanged($event.target.value)"
+        @input="$emit('update:value', $event.target.value)"
       />
     </label>
   </div>
@@ -19,9 +19,6 @@ export default class Notes extends Vue {
   @Prop({ default: "" }) value!: string;
   @Prop(String) filedName!: string;
   @Prop(String) placeholder?: string;
-  onValueChanged(val: string) {
-    this.$emit("update:value", val);
-  }
 }
 </script>
 
