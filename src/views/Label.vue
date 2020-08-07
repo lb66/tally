@@ -29,14 +29,10 @@ export default class Label extends Vue {
   createTag() {
     setTimeout(() => {
       const name = window.prompt("请输入标签名");
-      if (name) {
-        const message = tagModel.create(name);
-        if (message === "duplicated") {
-          window.alert("该标签已存在");
-        }
-      } else {
+      if (!name) {
         return;
       }
+      tagModel.create(name);
     }, 500);
   }
 }

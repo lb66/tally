@@ -1,27 +1,29 @@
 import createID from '@/lib/createID';
 
-
 const model: TagModel = {
-  data: [],
+  tagData: [] as Tag[],
   fetch() {
-    this.data = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-    return this.data;
+    this.tagData = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+    return this.tagData;
   },
   create(name) {
-    const names = this.data.map(item => item.name);
-    if (names.indexOf(name) >= 0) { return 'duplicated'; }
+    const names = this.tagData.map(item => item.name);
+    if (names.indexOf(name) >= 0) {
+      window.alert("该标签已存在");
+      return 'duplicated';
+    }
     const id = createID().toString();
-    this.data.push({ id: id, name: name });
+    this.tagData.push({ id: id, name: name });
     this.save();
     return 'success';
   },
   save() {
-    window.localStorage.setItem('tagList', JSON.stringify(this.data));
+    window.localStorage.setItem('tagList', JSON.stringify(this.tagData));
   },
   update(id, name) {
-    const idList = this.data.map(item => item.id)
+    const idList = this.tagData.map(item => item.id)
     if (idList.indexOf(id) >= 0) {
-      const tag = this.data.filter(item => item.id === id)[0];
+      const tag = this.tagData.filter(item => item.id === id)[0];
       tag.name = name;
       this.save();
       return 'success';
@@ -29,10 +31,10 @@ const model: TagModel = {
   },
   remove(id: string) {
     let index = -1;
-    for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i].id === id) {
+    for (let i = 0; i < this.tagData.length; i++) {
+      if (this.tagData[i].id === id) {
         index = i;
-        this.data.splice(index, 1);
+        this.tagData.splice(index, 1);
         break;
       }
     }
