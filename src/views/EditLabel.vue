@@ -8,7 +8,7 @@
       <span class="right"></span>
     </div>
     <div class="note-wrapper">
-      <Notes :value="tag.name" filedName="标签名" placeholder="请输入标签名" @update:value="update" /> 
+      <Notes :value="tag.name" filedName="标签名" placeholder="请输入标签名" @update:value="update" />
     </div>
     <div class="button-wrapper">
       <Button @click="remove">
@@ -21,39 +21,38 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import tagModel from "@/models/tagModel";
 import Notes from "@/components/Money/Notes.vue";
 import Button from "@/components/Button.vue";
 type Tag = {
   id: string;
   name: string;
 };
-@Component({ components: { Notes, Button } })
+@Component({
+  components: { Notes, Button },
+  computed: {
+    tag() {
+      return this.$store.state.currentTag;
+    },
+  },
+})
 export default class EditLabel extends Vue {
   tag?: Tag = undefined;
   created() {
+    this.$store.commit("fetchTags");
     const id = this.$route.params.id;
-    const tags = tagModel.fetch();
-    const tag = tags.filter((t: Tag) => t.id === id)[0];
-    if (tag) {
-      this.tag = tag;
-    } else {
+    this.$store.commit("setCurrentTag", id);
+    if (!this.tag) {
       this.$router.replace("/404");
     }
   }
   update(name: string) {
     if (this.tag) {
-      tagModel.update(this.tag.id, name);
+      this.$store.commit("updateTag", { id: this.tag.id, name });
     }
   }
   remove() {
     if (this.tag) {
-      tagModel.remove(this.tag.id);
-      if (tagModel.remove(this.tag.id)) {
-        this.$router.back();
-      } else {
-        window.alert("删除失败");
-      }
+      this.$store.commit("removeTag", this.tag.id);
     }
   }
 }

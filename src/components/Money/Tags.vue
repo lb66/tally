@@ -16,10 +16,15 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import tagModel from "@/models/tagModel";
-@Component
+@Component({
+  computed: {
+    tagList() {
+      return this.$store.state.tagData;
+    },
+  },
+})
 export default class Tags extends Vue {
-  tagList = tagModel.fetch();
+  tagList = this.$store.commit("fetchTags");
   selectedTags: string[] = [];
   select(tag: string) {
     if (this.selectedTags.length >= 1) {
@@ -33,7 +38,7 @@ export default class Tags extends Vue {
     if (!name) {
       return;
     }
-    tagModel.create(name);
+    this.$store.commit("createTag", name);
   }
 }
 </script>

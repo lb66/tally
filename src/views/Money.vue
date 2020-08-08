@@ -4,6 +4,7 @@
     <Types @update:value="onUpdateTypes" />
     <Notes @update:value="onUpdateNotes" filedName="备注" placeholder="在这里输入备注" />
     <Tags @update:value="onUpdateTags" />
+    {{record}}
     {{recordList}}
   </Layout>
 </template>
@@ -14,7 +15,6 @@ import Types from "@/components/Money/Types.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Tags from "@/components/Money/Tags.vue";
 import { Vue, Component } from "vue-property-decorator";
-import tagModel from "@/models/tagModel";
 
 @Component({
   components: { Tags, Notes, Types, NumberPad },
@@ -25,7 +25,7 @@ import tagModel from "@/models/tagModel";
   },
 })
 export default class Money extends Vue {
-  tags = tagModel.fetch();
+  tags = this.$store.commit("fetchTags");
   record: RecordItem = {
     tags: [],
     notes: "",

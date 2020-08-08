@@ -20,19 +20,25 @@
 
 <script>
 import { Vue, Component } from "vue-property-decorator";
-import tagModel from "@/models/tagModel";
 import Button from "@/components/Button";
 
-@Component({ components: { Button } })
+@Component({
+  components: { Button },
+  computed: {
+    tags() {
+      return this.$store.state.tagData;
+    },
+  },
+})
 export default class Label extends Vue {
-  tags = tagModel.fetch();
+  tags = this.$store.commit("fetchTags");
   createTag() {
     setTimeout(() => {
       const name = window.prompt("请输入标签名");
       if (!name) {
         return;
       }
-      tagModel.create(name);
+      this.$store.commit("createTag", name);
     }, 500);
   }
 }
