@@ -1,5 +1,5 @@
 <template>
-  <Layout class-prefix="layout">
+  <Layout classPrefix="layout">
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
     <Types @update:value="onUpdateTypes" />
     <Notes @update:value="onUpdateNotes" filedName="备注" placeholder="在这里输入备注" />
@@ -52,8 +52,8 @@ export default class Money extends Vue {
 }
 </script>
 
-<style lang="scss">
-.layout-content {
+<style lang="scss" scoped>
+::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
 }

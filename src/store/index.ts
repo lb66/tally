@@ -40,12 +40,13 @@ const store = new Vuex.Store({
       const names = state.tagData.map(item => item.name);
       if (names.indexOf(name) >= 0) {
         window.alert("该标签已存在");
+        return;
       }
       const id = createID().toString();
       state.tagData.push({ id: id, name: name });
       store.commit('saveTags');
     },
-    setCurrentTag(state, id: string) {
+    selectCurrentTag(state, id: string) {
       state.currentTag = state.tagData.filter(t => t.id === id)[0];
     },
     updateTag(state, payload: { id: string; name: string }) {
@@ -67,7 +68,6 @@ const store = new Vuex.Store({
         }
       }
       if (index >= 0) {
-        state.tagData.splice(index, 1);
         store.commit('saveTags');
         router.back();
       } else {

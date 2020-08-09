@@ -40,7 +40,7 @@ export default class EditLabel extends Vue {
   created() {
     this.$store.commit("fetchTags");
     const id = this.$route.params.id;
-    this.$store.commit("setCurrentTag", id);
+    this.$store.commit("selectCurrentTag", id);
     if (!this.tag) {
       this.$router.replace("/404");
     }

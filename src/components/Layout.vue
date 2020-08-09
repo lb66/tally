@@ -1,7 +1,6 @@
 <template>
-  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
-    <!-- 可以删除??????-->
-    <div class="content" :class="classPrefix && `${classPrefix}-content` ">
+  <div class="layout-wrapper" :class="`${classPrefix}-wrapper`">
+    <div class="content" :class="`${classPrefix}-content` ">
       <slot />
     </div>
     <Nav />
