@@ -1,7 +1,8 @@
+// 此文件已改为Tabs.vue,不使用仅作参考
 <template>
   <div>
     <ul class="types">
-      <li :class="{selected: type==='-'}" @click="selectType('-')">支出</li>
+      <li :class="type==='-' ? 'selected':null" @click="selectType('-')">支出</li>
       <li :class="{selected: type==='+'}" @click="selectType('+')">收入</li>
     </ul>
   </div>
@@ -11,7 +12,6 @@
 import { Vue, Component, Watch } from "vue-property-decorator";
 @Component
 export default class Types extends Vue {
-  // @Prop(String) classPrefix?: string;
   type = "-"; //默认为支出
   selectType(type: string) {
     this.type = type;
