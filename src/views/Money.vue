@@ -5,7 +5,6 @@
     <Notes @update:value="onUpdateNotes" filedName="备注" placeholder="在这里输入备注" />
     <Tags :value.sync="record.tags" />
     {{record}}
-    {{recordList}}
   </Layout>
 </template>
 
@@ -35,13 +34,14 @@ export default class Money extends Vue {
     notes: "",
     type: "-",
     amount: 0,
+    createAt: "",
   };
   recordList = this.$store.commit("fetchRecords");
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
   saveRecord() {
-    this.record.createAt = new Date();
+    this.record.createAt = new Date().toISOString();
     this.$store.commit("createRecord", this.record);
   }
 }

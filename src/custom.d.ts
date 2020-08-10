@@ -3,21 +3,17 @@ type RecordItem = {
   notes: string;
   type: string;
   amount: number;
-  createAt?: Date;
+  createAt: string;
 };
 type Tag = {
   id: string;
   name: string;
 };
-// type TagModel = {
-//   tagData: Tag[];
-//   fetch: () => Tag[];
-//   create: (name: string) => 'success' | 'duplicated';
-//   save: () => void;
-//   update: (id: string, name: string) => 'success' | undefined;
-//   remove: (id: string) => boolean;
-// };
-
+type RootState = {
+  recordList: RecordItem[];
+  tagData: Tag[];
+  currentTag?: Tag;
+}
 // interface Window {
 
 // }

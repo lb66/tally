@@ -13,7 +13,6 @@ export default class Button extends Vue {}
 <style lang='scss' scoped>
 .buttons {
   border: none;
-  display: block;
   position: relative;
   padding: 0.6em 1.2em;
   font-size: 18px;
