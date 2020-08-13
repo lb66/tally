@@ -6,7 +6,7 @@
       </div>
 
       <div class="list">
-        <ol>
+        <ol v-if="groupList.length>0">
           <li v-for="(group,index) in groupList" :key="index">
             <h3 class="title">
               {{simplify(group.title)}}
@@ -14,13 +14,14 @@
             </h3>
             <ol>
               <li v-for="item in group.items" :key="item.id" class="record">
-                <span>{{tagString(item.tags)}}</span>
+                <span>{{item.tags[0].name}}</span>
                 <span class="notes">{{item.notes}}</span>
                 <span>￥{{item.amount}}</span>
               </li>
             </ol>
           </li>
         </ol>
+        <div v-else class="noRecord">无记录</div>
       </div>
     </Layout>
   </div>
@@ -78,9 +79,6 @@ export default class Statistics extends Vue {
       }, 0);
     });
     return afterList;
-  }
-  tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags[0].name;
   }
   simplify(string: string) {
     const now = dayjs();

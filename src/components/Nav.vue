@@ -37,7 +37,7 @@ nav {
     }
   }
   > .selected {
-    color: royalblue;
+    color: #7fb1be;
   }
 }
 </style>

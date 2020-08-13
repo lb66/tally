@@ -5,7 +5,9 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="remove">
+        <svg-icon name="back" />
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -13,7 +15,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="ok" class="ok">OK</button>
+      <button @click="ok" class="ok">完成</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -68,8 +70,12 @@ export default class NumberPad extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 .numberPad {
+  .svgClass {
+    width: 30px;
+    height: 30px;
+  }
   .output {
-    @extend %clearFix;
+    // @extend %clearFix;
     @extend %innerShadow;
     font-size: 36px;
     font-family: Consolas, monospace;
@@ -77,7 +83,7 @@ export default class NumberPad extends Vue {
     text-align: right;
   }
   .buttons {
-    @extend %clearFix;
+    // @extend %clearFix;
     > button {
       font-size: 20px;
       width: 25%;
@@ -122,6 +128,9 @@ export default class NumberPad extends Vue {
         background: darken($bg, 4 * 6%);
       }
     }
+  }
+  button:active {
+    color: royalblue;
   }
 }
 </style>

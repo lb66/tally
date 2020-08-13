@@ -2,9 +2,9 @@
   <Layout classPrefix="layout">
     <NumberPad :value.sync="record.amount" @submit="saveRecord" />
     <Tabs :dataSource="typeList" :value.sync="record.type" />
-    <Notes @update:value="onUpdateNotes" filedName="备注" placeholder="在这里输入备注" />
+    <Notes :value.sync="record.notes" filedName="备注" placeholder="点击写备注..." />
     <Tags :value.sync="record.tags" />
-    {{record}}
+    <!-- {{record}} -->
   </Layout>
 </template>
 
@@ -28,7 +28,6 @@ export default class Money extends Vue {
     { text: "支出", value: "-" },
     { text: "收入", value: "+" },
   ];
-  tags = this.$store.commit("fetchTags");
   record: RecordItem = {
     tags: [],
     notes: "",
@@ -36,13 +35,18 @@ export default class Money extends Vue {
     amount: 0,
     createAt: "",
   };
-  recordList = this.$store.commit("fetchRecords");
-  onUpdateNotes(value: string) {
-    this.record.notes = value;
+  created() {
+    this.$store.commit("fetchTags");
+    this.$store.commit("fetchRecords");
   }
   saveRecord() {
+    if (this.record.tags.length === 0) {
+      window.alert("请选择标签");
+      return;
+    }
     this.record.createAt = new Date().toISOString();
     this.$store.commit("createRecord", this.record);
+    this.record.notes = " ";
   }
 }
 </script>

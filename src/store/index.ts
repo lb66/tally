@@ -27,6 +27,12 @@ const store = new Vuex.Store({
     // tag
     fetchTags(state) {
       state.tagData = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagData || state.tagData.length === 0) {
+        store.commit('createTag', '吃饭');
+        store.commit('createTag', '交通');
+        store.commit('createTag', '衣服');
+        store.commit('createTag', '其他');
+      }
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagData));
