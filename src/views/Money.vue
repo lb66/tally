@@ -4,7 +4,7 @@
     <Tabs :dataSource="typeList" :value.sync="record.type" />
     <Notes :value.sync="record.notes" filedName="备注" placeholder="点击写备注..." />
     <Tags :value.sync="record.tags" />
-    <!-- {{record}} -->
+    <img :src="QR" class="qr" @click="hidden(isShow)" v-show="isShow" />
   </Layout>
 </template>
 
@@ -48,6 +48,14 @@ export default class Money extends Vue {
     this.$store.commit("createRecord", this.record);
     this.record.notes = " ";
   }
+
+  QR = "/logo.png";
+  isShow = true;
+  hidden(x: boolean) {
+    if (x === true) {
+      this.isShow = false;
+    }
+  }
 }
 </script>
 
@@ -55,5 +63,16 @@ export default class Money extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
+}
+.qr {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media screen and (max-width: 480px) {
+  .qr {
+    display: none;
+  }
 }
 </style>

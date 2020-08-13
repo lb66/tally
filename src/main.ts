@@ -21,3 +21,7 @@ new Vue({
 window.onload = function () {
   setTimeout(function () { window.scrollTo(0, 9999) }, 0)
 }
+
+if (document.documentElement.clientWidth > 480) {
+  window.alert('请使用手机打开本页面，以保证浏览效果')
+}
