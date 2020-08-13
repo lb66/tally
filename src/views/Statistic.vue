@@ -4,7 +4,6 @@
       <div class="tabs">
         <Tabs classPrefix="type" :dataSource="typeList" :value.sync="type" />
       </div>
-
       <div class="list">
         <ol v-if="groupList.length>0">
           <li v-for="(group,index) in groupList" :key="index">
@@ -110,10 +109,12 @@ export default class Statistics extends Vue {
   }
 }
 ::v-deep .type-item {
+  color: #f2f5f5;
   background: #b1c2c6;
   &.selected {
     background: #f2f5f5;
-    color: royalblue;
+    color: black;
+    font-size: 28px;
   }
   &::after {
     display: none;
@@ -137,5 +138,9 @@ export default class Statistics extends Vue {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
+}
+.noRecord {
+  display: inline-block;
+  margin: 20px 40px;
 }
 </style>
