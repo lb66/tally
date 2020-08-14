@@ -23,10 +23,6 @@
 import { Vue, Component } from "vue-property-decorator";
 import Notes from "@/components/Money/Notes.vue";
 import Button from "@/components/Button.vue";
-type Tag = {
-  id: string;
-  name: string;
-};
 @Component({
   components: { Notes, Button },
   computed: {

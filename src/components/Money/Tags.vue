@@ -24,7 +24,6 @@ import { Vue, Component } from "vue-property-decorator";
   },
 })
 export default class Tags extends Vue {
-  tagList = this.$store.commit("fetchTags");
   selectedTags: string[] = [];
   select(tag: string) {
     if (this.selectedTags.length >= 1) {
@@ -39,6 +38,10 @@ export default class Tags extends Vue {
       return;
     }
     this.$store.commit("createTag", name);
+  }
+  created() {
+    this.$store.commit("fetchTags");
+    this.select(this.$store.state.tagData[0]);
   }
 }
 </script>
@@ -55,6 +58,7 @@ export default class Tags extends Vue {
     display: flex;
     flex-wrap: wrap;
     > li {
+      cursor: pointer;
       background: #e0e7e8;
       $h: 36px;
       height: $h;
@@ -72,6 +76,7 @@ export default class Tags extends Vue {
   > .new {
     padding-top: 16px;
     button {
+      cursor: pointer;
       background: transparent;
       border: none;
       color: #999;

@@ -40,16 +40,12 @@ export default class Money extends Vue {
     this.$store.commit("fetchRecords");
   }
   saveRecord() {
-    if (this.record.tags.length === 0) {
-      window.alert("请选择标签");
-      return;
-    }
     this.record.createAt = new Date().toISOString();
     this.$store.commit("createRecord", this.record);
     this.record.notes = " ";
   }
 
-  QR = "/logo.png";
+  QR = require("@/assets/logo.png");
   isShow = true;
   hidden(x: boolean) {
     if (x === true) {
@@ -66,9 +62,8 @@ export default class Money extends Vue {
 }
 .qr {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 5%;
+  right: 5%;
 }
 @media screen and (max-width: 480px) {
   .qr {

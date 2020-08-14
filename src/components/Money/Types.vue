@@ -24,27 +24,4 @@ export default class Types extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.types {
-  background: #b1c2c6;
-  display: flex;
-  text-align: center;
-  font-size: 24px;
-  > li {
-    width: 50%;
-    height: 64px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    &.selected::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: gray;
-    }
-  }
-}
 </style>
