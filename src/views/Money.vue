@@ -45,7 +45,7 @@ export default class Money extends Vue {
     this.record.notes = " ";
   }
 
-  QR = require("@/assets/logo.png");
+  QR = require("@/assets/QRcode.png");
   isShow = true;
   hidden(x: boolean) {
     if (x === true) {
@@ -62,6 +62,7 @@ export default class Money extends Vue {
 }
 .qr {
   position: fixed;
+  width: 180px;
   top: 5%;
   right: 5%;
 }
