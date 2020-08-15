@@ -1,24 +1,41 @@
 <template>
   <div>
-    <label class="notes">
-      <span class="name">{{this.filedName}}</span>
-      <input
-        type="text"
-        :placeholder="placeholder"
-        :value="value"
-        @input="$emit('update:value', $event.target.value)"
-      />
+    <label class="notes" :class="`${classPrefix}-form` ">
+      <span class="name">{{filedName}}</span>
+      <template v-if="type==='date'">
+        <input
+          :type="type || 'text'"
+          :placeholder="placeholder"
+          :value="iso(value)"
+          @input="$emit('update:value', $event.target.value)"
+        />
+      </template>
+      <template v-else>
+        <input
+          :type="type || 'text'"
+          :placeholder="placeholder"
+          :value="value"
+          @input="$emit('update:value', $event.target.value)"
+        />
+      </template>
     </label>
   </div>
 </template> 
 
 <script lang='ts'>
 import { Vue, Component, Prop } from "vue-property-decorator";
+import dayjs from "dayjs";
 @Component
 export default class Notes extends Vue {
   @Prop({ default: "" }) value!: string;
-  @Prop(String) filedName!: string;
+  @Prop(String) filedName?: string;
   @Prop(String) placeholder?: string;
+  @Prop(String) type?: string;
+  @Prop(String) classPrefix?: string;
+
+  iso(isoString: string) {
+    return dayjs(isoString).format("YYYY-MM-DD");
+  }
 }
 </script>
 

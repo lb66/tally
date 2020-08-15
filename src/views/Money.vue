@@ -4,6 +4,7 @@
     <Tabs :dataSource="typeList" :value.sync="record.type" />
     <Notes :value.sync="record.notes" filedName="备注" placeholder="点击写备注..." />
     <Tags :value.sync="record.tags" />
+    <Notes :value.sync="record.createAt" type="date" classPrefix="date" />
     <img :src="QR" class="qr" @click="hidden(isShow)" v-show="isShow" />
   </Layout>
 </template>
@@ -33,14 +34,14 @@ export default class Money extends Vue {
     notes: "",
     type: "-",
     amount: 0,
-    createAt: "",
+    createAt: new Date().toISOString(),
   };
   created() {
     this.$store.commit("fetchTags");
     this.$store.commit("fetchRecords");
   }
   saveRecord() {
-    this.record.createAt = new Date().toISOString();
+    this.record.createAt = this.record.createAt || new Date().toISOString();
     this.$store.commit("createRecord", this.record);
     this.record.notes = " ";
   }
@@ -60,10 +61,20 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
+::v-deep .date-form {
+  background: #a6b8bd;
+  .name {
+    padding-right: 0;
+  }
+  input {
+    height: 44px;
+    margin-right: 10px;
+  }
+}
 .qr {
   position: fixed;
   width: 180px;
-  top: 5%;
+  top: 7%;
   right: 5%;
 }
 @media screen and (max-width: 480px) {
