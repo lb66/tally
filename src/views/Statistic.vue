@@ -1,8 +1,9 @@
 <template>
   <div>
     <Layout>
-      <div class="tabs">
-        <Tabs classPrefix="type" :dataSource="typeList" :value.sync="type" />
+      <Tabs classPrefix="type" :dataSource="typeList" :value.sync="type" />
+      <div class="chart-wrapper" ref="chartWrapper">
+        <Chart class="chart" :options="chartOptions" />
       </div>
       <div class="list">
         <ol v-if="groupList.length>0">
@@ -31,8 +32,11 @@ import { Vue, Component } from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
 import dayjs from "dayjs";
 import clone from "@/lib/clone";
+import Chart from "@/components/Chart.vue";
+import _ from "lodash";
+
 @Component({
-  components: { Tabs },
+  components: { Tabs, Chart },
 })
 export default class Statistics extends Vue {
   type = "-";
@@ -94,16 +98,83 @@ export default class Statistics extends Vue {
       return day.format("YY年M月D日");
     }
   }
+
+  get keyValueList() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      const dateString = dayjs(today).subtract(i, "day").format("YYYY-MM-DD");
+      const found = _.find(this.groupList, {
+        title: dateString,
+      });
+      array.push({
+        key: dateString,
+        value: found ? found.total : 0,
+      });
+      // [{date:8.3, value:100}, ...]
+    }
+    array.sort((a, b) => {
+      if (a.key > b.key) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    return array;
+  }
+  get chartOptions() {
+    const keys = this.keyValueList.map((item) => item.key);
+    const values = this.keyValueList.map((item) => item.value);
+    return {
+      grid: {
+        left: 0,
+        right: 0,
+        top: 30,
+        bottom: 30,
+      },
+      xAxis: {
+        type: "category",
+        data: keys,
+        axisTick: { alignWithLabel: true },
+        axisLine: { lineStyle: { color: "#666" } },
+        axisLabel: {
+          formatter: function (value: string) {
+            return value.substr(5);
+          },
+        },
+      },
+      yAxis: {
+        type: "value",
+        show: false,
+      },
+      series: [
+        {
+          // symbol: "circle",
+          symbolSize: 10,
+          itemStyle: { borderWidth: 1, color: "#45657b" },
+          data: values,
+          type: "line",
+        },
+      ],
+      tooltip: {
+        padding: [2, 5],
+        show: true,
+        triggerOn: "click",
+        position: "top",
+        formatter: "{c}",
+      },
+    };
+  }
+  mounted() {
+    const div = this.$refs.chartWrapper as HTMLDivElement;
+    div.scrollLeft = div.scrollWidth;
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.tabs {
-  position: fixed;
-  width: 100%;
-}
 .list {
-  margin-top: 64px;
+  margin-bottom: 55px;
   ::-webkit-scrollbar {
     display: none;
   }
@@ -140,7 +211,18 @@ export default class Statistics extends Vue {
   color: #999;
 }
 .noRecord {
-  display: inline-block;
-  margin: 20px 40px;
+  // display: inline-block;
+  padding: 20px;
+  text-align: center;
+}
+.chart {
+  height: 150px;
+  width: 430%;
+  &-wrapper {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 </style>

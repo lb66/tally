@@ -22,6 +22,10 @@ export default {
 @import "../assets/style/helper.scss";
 nav {
   @extend %outerShadow;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background: #f2f5f5;
   display: flex;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   font-size: 14px;

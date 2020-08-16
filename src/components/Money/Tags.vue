@@ -68,7 +68,7 @@ export default class Tags extends Vue {
       margin-right: 12px;
       margin-top: 4px;
       &.selected {
-        background: darken(#e0e7e8, 30%);
+        background: #ff6600;
         color: white;
       }
     }

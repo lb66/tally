@@ -43,7 +43,8 @@ export default class Money extends Vue {
   saveRecord() {
     this.record.createAt = this.record.createAt || new Date().toISOString();
     this.$store.commit("createRecord", this.record);
-    this.record.notes = " ";
+    this.record.notes = "";
+    window.alert("添加成功");
   }
 
   QR = require("@/assets/QRcode.png");
@@ -60,6 +61,7 @@ export default class Money extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
+  margin: 0 0 55px 0;
 }
 ::v-deep .date-form {
   background: #a6b8bd;

@@ -26,11 +26,6 @@ const routes: Array<RouteConfig> = [
     component: Statistic
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/label/edit/:id',
     component: EditLabel
   },
