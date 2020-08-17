@@ -50,7 +50,6 @@ export default class Notes extends Vue {
   }
   input {
     height: 64px;
-    flex-grow: 1;
     background: transparent;
     border: none;
     padding-right: 16px;

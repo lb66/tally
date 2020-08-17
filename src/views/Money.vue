@@ -4,7 +4,7 @@
     <Tabs :dataSource="typeList" :value.sync="record.type" />
     <Notes :value.sync="record.notes" filedName="备注" placeholder="点击写备注..." />
     <Tags :value.sync="record.tags" />
-    <Notes :value.sync="record.createAt" type="date" classPrefix="date" />
+    <Notes :value.sync="record.createAt" type="date" classPrefix="date" filedName="小B记账" />
     <img :src="QR" class="qr" @click="hidden(isShow)" v-show="isShow" />
   </Layout>
 </template>
@@ -66,11 +66,11 @@ export default class Money extends Vue {
 ::v-deep .date-form {
   background: #a6b8bd;
   .name {
-    padding-right: 0;
+    flex-grow: 1;
+    font-weight: bold;
   }
   input {
     height: 44px;
-    margin-right: 10px;
   }
 }
 .qr {
