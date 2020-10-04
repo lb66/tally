@@ -1,5 +1,5 @@
 <template>
-  <Layout classPrefix="layout">
+  <Layout classPrefix="layout" :style="{height:h+'px'}">
     <NumberPad :value.sync="record.amount" @submit="saveRecord" />
     <Tabs :dataSource="typeList" :value.sync="record.type" />
     <Notes :value.sync="record.notes" filedName="备注" placeholder="点击写备注..." />
@@ -25,6 +25,7 @@ import { Vue, Component } from "vue-property-decorator";
   },
 })
 export default class Money extends Vue {
+  h = document.body.clientHeight;
   typeList = [
     { text: "支出", value: "-" },
     { text: "收入", value: "+" },
