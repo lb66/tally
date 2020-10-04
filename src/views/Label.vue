@@ -1,29 +1,28 @@
-
 <template>
-  <div>
-    <layout>
-      <div class="tags">
-        <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/label/edit/${tag.id}`">
-          <span>{{tag.name}}</span>
-          <svg-icon name="right" />
-        </router-link>
-      </div>
-      <div class="button-wrapper">
-        <Button @click.native="createTag">
-          新增标签
-          <span />
-        </Button>
-      </div>
-    </layout>
-  </div>
+<div>
+  <layout>
+    <div class="tags">
+      <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/label/edit/${tag.id}`">
+        <span>{{tag.name}}</span>
+        <svg-icon name="right" />
+      </router-link>
+    </div>
+    <div class="button-wrapper">
+      <Button type="primary" @click="createTag">
+        新增标签
+      </Button>
+    </div>
+  </layout>
+</div>
 </template>
 
 <script>
-import { Vue, Component } from "vue-property-decorator";
-import Button from "@/components/Button";
+import {
+  Vue,
+  Component
+} from "vue-property-decorator";
 
 @Component({
-  components: { Button },
   computed: {
     tags() {
       return this.$store.state.tagData;
@@ -49,15 +48,18 @@ export default class Label extends Vue {
   font-size: 16px;
   padding: 8px 0;
 }
+
 .tag {
   display: flex;
   justify-content: space-between;
   min-height: 44px;
   align-items: center;
   border: 2px solid #d5dde0;
+
   svg {
     color: #666;
   }
+
   margin: 6px 16px;
   padding: 0 16px;
 }
