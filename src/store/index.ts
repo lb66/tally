@@ -21,6 +21,10 @@ const store = new Vuex.Store({
       state.recordList.push(clone(record));
       store.commit('saveRecords')
     },
+    removeRecord(state,index){
+      state.recordList.splice(index,1)
+      store.commit('saveRecords')
+    },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
