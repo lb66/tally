@@ -5,7 +5,7 @@
   <Notes :value.sync="record.notes" filedName="备注" placeholder="你要默默的记账，然后惊艳所有人" />
   <Tags :value.sync="record.tags" />
   <Notes :value.sync="record.createAt" type="date" classPrefix="date" />
-  <img :src="QR" class="qr" @click="hidden(isShow)" v-show="isShow" />
+  <img :src="QR" class="qr" @click="hidden(isShow)" v-if="isShow" />
 </Layout>
 </template>
 

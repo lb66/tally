@@ -2,22 +2,26 @@
 <div>
   <Layout>
     <Tabs classPrefix="type" :dataSource="typeList" :value.sync="type" />
-    <div class="chart-wrapper" ref="chartWrapper">
-      <Chart class="chart" :options="chartOptions" />
+    <Button size="large" type="default" @click="toggle">切换日 / 月</Button>
+    <div class="chart-wrapper" ref="chartWrapper" v-if="dayOrMonth">
+      <Chart class="chart" :options="chartOptions(keyValueList)" />
+    </div>
+    <div v-else>
+      <Chart class="chart2" :options="chartOptions(monthKeyValueList)" />
     </div>
     <div class="list">
-      <ol v-if="groupList.length>0">
-        <li v-for="(group,index) in groupList" :key="index">
+      <ol v-if="groupList.length > 0">
+        <li v-for="(group, index) in groupList" :key="index">
           <h3 class="title">
-            {{simplify(group.title)}}
-            <span>￥{{group.total}}</span>
+            {{ simplify(group.title) }}
+            <span>￥{{ group.total }}</span>
           </h3>
           <ol>
             <li v-for="item in group.items" :key="item.id" class="record">
-              <span>{{item.tags[0].name}}</span>
-              <span class="notes">{{item.notes}}</span>
-              <span>￥{{item.amount}}</span>
-              <Button style="margin-left:10px;" size='small' type="danger" plain @click="remove(item)">删除</Button>
+              <span>{{ item.tags[0].name }}</span>
+              <span class="notes">{{ item.notes }}</span>
+              <span>￥{{ item.amount }}</span>
+              <Button style="margin-left: 10px" size="small" type="danger" plain @click="remove(item)">删除</Button>
             </li>
           </ol>
         </li>
@@ -42,28 +46,32 @@ import _ from "lodash";
 @Component({
   components: {
     Tabs,
-    Chart
+    Chart,
   },
 })
 export default class Statistics extends Vue {
+  dayOrMonth = true
   type = "-";
   time = "day";
   typeList = [{
       text: "支出",
-      value: "-"
+      value: "-",
     },
     {
       text: "收入",
-      value: "+"
+      value: "+",
     },
   ];
+  toggle() {
+    this.dayOrMonth = !this.dayOrMonth
+  }
   remove(cur: RecordItem) {
-    const list = (this.$store.state as RootState).recordList
-    console.log(cur.createAt, list)
+    const list = (this.$store.state as RootState).recordList;
+    console.log(cur.createAt, list);
     for (let i = 0; i < list.length; i++) {
       if (list[i].createAt === cur.createAt && list[i].amount === cur.amount) {
-        this.$store.commit("removeRecord", i)
-        break
+        this.$store.commit("removeRecord", i);
+        break;
       }
     }
   }
@@ -81,7 +89,9 @@ export default class Statistics extends Vue {
       return [];
     }
     type After = {
-      title: string;total? : number;items: RecordItem[];
+      title: string;
+      total? : number;
+      items: RecordItem[];
     } [];
     const afterList: After = [{
       title: dayjs(beforeList[0].createAt).format("YYYY-MM-DD"),
@@ -123,6 +133,7 @@ export default class Statistics extends Vue {
 
   get keyValueList() {
     const today = new Date();
+    //按日查看
     const array = [];
     for (let i = 0; i <= 29; i++) {
       const dateString = dayjs(today).subtract(i, "day").format("YYYY-MM-DD");
@@ -133,7 +144,6 @@ export default class Statistics extends Vue {
         key: dateString,
         value: found ? found.total : 0,
       });
-      // [{date:8.3, value:100}, ...]
     }
     array.sort((a, b) => {
       if (a.key > b.key) {
@@ -144,9 +154,41 @@ export default class Statistics extends Vue {
     });
     return array;
   }
-  get chartOptions() {
-    const keys = this.keyValueList.map((item) => item.key);
-    const values = this.keyValueList.map((item) => item.value);
+  get monthKeyValueList() {
+    const today = new Date();
+    //按月查看
+    const array2 = [];
+    for (let i = 0; i < 12; i++) {
+      const monthString = dayjs(today).subtract(i, "month").format("YYYY-MM");
+      let monthTotal = 0;
+      for (let j = 0; j <= 30; j++) {
+        const dayFound = _.find(this.groupList, {
+          title: monthString + "-" + j,
+        });
+        if (dayFound && dayFound.total) {
+          monthTotal += dayFound.total;
+        }
+      }
+      array2.push({
+        key: monthString,
+        value: monthTotal,
+      });
+    }
+    array2.sort((a, b) => {
+      if (a.key > b.key) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    // console.log(array2)
+    return array2;
+  }
+
+  chartOptions(list: keyValueList) {
+    // console.log(list)
+    const keys = list.map((item) => item.key);
+    const values = list.map((item) => item.value);
     return {
       grid: {
         left: 0,
@@ -158,12 +200,12 @@ export default class Statistics extends Vue {
         type: "category",
         data: keys,
         axisTick: {
-          alignWithLabel: true
+          alignWithLabel: true,
         },
         axisLine: {
           lineStyle: {
-            color: "#666"
-          }
+            color: "#666",
+          },
         },
         axisLabel: {
           formatter: function (value: string) {
@@ -180,7 +222,7 @@ export default class Statistics extends Vue {
         symbolSize: 10,
         itemStyle: {
           borderWidth: 1,
-          color: "#45657b"
+          color: "#45657b",
         },
         data: values,
         type: "line",
@@ -197,6 +239,7 @@ export default class Statistics extends Vue {
   mounted() {
     const div = this.$refs.chartWrapper as HTMLDivElement;
     div.scrollLeft = div.scrollWidth;
+    console.log(div.scrollWidth)
   }
 }
 </script>
@@ -265,5 +308,14 @@ export default class Statistics extends Vue {
       display: none;
     }
   }
+}
+
+.chart2 {
+  height: 150px;
+  width: 100%;
+}
+
+.switch {
+  margin: 10px 10px 0 10px;
 }
 </style>

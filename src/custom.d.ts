@@ -13,7 +13,11 @@ type RootState = {
   recordList: RecordItem[];
   tagData: Tag[];
   currentTag?: Tag;
-}
+};
+type keyValueList = {
+  key: string;
+  value: number;
+}[]
 // interface Window {
 
 // }
