@@ -14,7 +14,7 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.8.33",
     "echarts": "^4.8.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mint-ui": "^2.2.13",
     "register-service-worker": "^1.7.1",
     "scss-loader": "^0.0.1",
